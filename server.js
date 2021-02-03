@@ -47,6 +47,7 @@ app.put('/candidates', (req, res) => {
         .then(result => {
             res.json(result)
         })
+        .catch(err => res.status(400).json('에러'))
 })
 
 app.listen(3001, () => {
