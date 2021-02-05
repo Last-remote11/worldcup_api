@@ -7,17 +7,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : 'peko',
-      database : 'worldcup'
+      connectionString : process.env.DATABASE_URL,
+      ssl : true
     }
   });
 
+app.get('/', (req, res) => {
+    console.log('it is working')
+})
 
 app.put('/load', (req, res) => {
     const { worldcupName } = req.body;
