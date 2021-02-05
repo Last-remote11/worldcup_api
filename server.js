@@ -17,7 +17,7 @@ const db = knex({
       database : 'worldcup'
     }
   });
-
+  
 
 app.put('/load', (req, res) => {
     const { worldcupName } = req.body;
@@ -47,9 +47,28 @@ app.put('/candidates', (req, res) => {
         .then(result => {
             res.json(result)
         })
-        .catch(err => res.status(400).json('에러'))
+        .catch(err => res.status(400).json('candidate를 불러오는 중 에러'))
 })
+
+app.post('/addWorldcupName', (req, res) => {
+
+    const { addWorldcupName, addThumbnail, addNumberOfCandidates } = req.body;
+    db('worldcups').insert({worldcupname: addWorldcupName, thumbnail: addThumbnail, noc: addNumberOfCandidates })
+        .returning('worldcupname')
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json(err, 'worldcup 테이블에 추가하는 중 오류'))
+});
+
+app.post('/addCandidates', (req, res) => {
+
+    db('candidates').insert(req.body)
+        .returning('*')
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json(err, 'candidates 테이블에 추가하는 중 오류'))
+});
+
+
 
 app.listen(3001, () => {
     console.log('server is running at 3001')
-})
+});
