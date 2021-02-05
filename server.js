@@ -17,7 +17,7 @@ const db = knex({
       database : 'worldcup'
     }
   });
-  
+
 
 app.put('/load', (req, res) => {
     const { worldcupName } = req.body;
@@ -69,6 +69,6 @@ app.post('/addCandidates', (req, res) => {
 
 
 
-app.listen(3001, () => {
-    console.log('server is running at 3001')
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`server is running at ${process.env.PORT}`)
 });
