@@ -52,6 +52,20 @@ app.put('/candidates', (req, res) => {
         .catch(err => res.status(400).json('candidate를 불러오는 중 에러'))
 })
 
+
+app.put('/rank', (req, res) => {
+
+    const { worldcupName } = req.body;
+    db('candidates').where('worldcupname', '=', worldcupName)
+    .select('name','wincount', 'img')
+    .orderBy('wincount', 'desc')
+    .then(result => {
+        res.json(result)
+    })
+    .catch(err => res.status(400).json('rank를 불러오는 중 에러'))
+})
+
+
 app.post('/addWorldcupName', (req, res) => {
 
     const { addWorldcupName, addThumbnail, addNumberOfCandidates } = req.body;
