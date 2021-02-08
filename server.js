@@ -73,7 +73,16 @@ app.post('/addCandidates', (req, res) => {
 app.post('/addWinner', (req, res) => {
 
     const { winner, worldcupname } = req.body
-    res.send(winner, worldcupname)
+    db('candidates').where({
+        name: winner,
+        worldcupname: worldcupname
+    })
+    .increment('wincount', 1)
+    .returning('wincount')
+    .then(wincount => {
+        res.json(wincount[0])
+    })
+    .catch(err => res.status(400).json("에러발생"))
 })
 
 
