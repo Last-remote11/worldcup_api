@@ -70,6 +70,12 @@ app.post('/addCandidates', (req, res) => {
 });
 
 
+app.post('/addWinner', (req, res) => {
+
+    const { winner, worldcupname } = req.body
+    res.send(winner, worldcupname)
+})
+
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`server is running at ${process.env.PORT}`)
