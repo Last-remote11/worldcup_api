@@ -103,7 +103,9 @@ app.post('/signIn', (req, res) => {
 
     const { email, password } = req.body
     if (email === 'peko@miko' && password === 'mikopeko') {
-        res.send('loginSuccess')
+        res.send('signInSuccess')
+    } else {
+        res.status('400').json('signIn failed')
     }
 })
 
