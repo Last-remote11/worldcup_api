@@ -99,6 +99,14 @@ app.post('/addWinner', (req, res) => {
     .catch(err => res.status(400).json("에러발생"))
 })
 
+app.post('/signIn', (req, res) => {
+
+    const { email, password } = req.body
+    if (email === 'peko@miko' && password === 'mikopeko') {
+        res.send('loginSuccess')
+    }
+})
+
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`server is running at ${process.env.PORT}`)
